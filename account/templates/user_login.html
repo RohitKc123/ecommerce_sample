@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<body>
+{% block content %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+<div class="container user-login" style="display: flex; justify-content: center;">
+
+    <div class="card user-login-card">
+    <h1 class="user-login-head">Login</h1>
+        <p class="user-login-paragraph">Please login using account detail below.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+        <p class="forgot-password"><a href="/account/reset_password/">Forgot Password</a></p>
+        <button type="submit" class="btn user-login-button">Login</button>
+        <p class="user-login-text">Dont have an account? <a href="/account/signup/" class="user-signup-text">Sign Up here</a></p>
+    </form>
+    </div>
+
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

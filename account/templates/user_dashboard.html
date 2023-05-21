@@ -1,0 +1,106 @@
+    <!DOCTYPE html>
+
+
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>User Profile</title>
+
+    </head>
+    <body>
+    {% extends "base.html" %}
+    {% block content %}
+    {% load static %}
+    <link href="{% static 'css/user_profile.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <div class="user-profile-head">
+        <div class="container">
+            <p>Profile</p>
+        </div>
+    </div>
+    <div class="row">
+        <!--<div class="container user-profile">-->
+
+        <div class="col user-profile">
+            <div class="card user-profile-card">
+                {% if request.user.image %}
+                <img class="card-user-img" src="{{request.user.image.url}}" alt="Card image cap" id="image">
+                {% else %}
+                <img class="card-user-img" src="{% static 'images/images.png' %}" alt="Card image cap" id="image1">
+                {% endif %}
+
+                <div class="user-profile-button">
+                    <p class="user-details">{{request.user.username}}</p>
+                    <p class="user-email">{{request.user.email}}</p>
+
+
+                </div>
+                <p class="user-account">Account</p>
+
+                <p><i class="fa fa-edit user-profile-edit-icon" aria-hidden="true"></i><a class="user-profile-edit"
+                                                                       href="{% url 'update_profile' user.id %}">Edit
+                    Profile</a></p>
+                <p><i class="fa fa-sign-out user-profile-delete-icon" aria-hidden="true"></i><a class="user-profile-logout" href="/account/logout/">Logout</a>
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card user-personal">
+
+                <p class="user-personal-info-head">Personal Information</p>
+                <div class="user-personal-info">
+                    <p>Name: {{request.user.username}}</p>
+                    <p>Email: {{request.user.email}}</p>
+                    <p>Contact Number: {{request.user.phone_number}}</p>
+                    {% if request.user.address %}
+                    <p>Address: {{request.user.address}}</p>
+                    {% else %}
+                    <p>Address: N/A<p>
+                    {% endif %}
+                </div>
+            </div>
+            {% if wishlist_items_queryset.wished_item %}
+            <div class="card user-history">
+                <div class="user-order-title">
+                <p class="user-order-history">Latest Order</p>
+               <a href="/account/user-history/">View order history</a>
+                </div>
+                    <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tr>
+
+                        <td>
+                            {{wishlist_items_queryset.wished_item.name}}
+                        </td>
+                        <td>
+                            {{wishlist_items_queryset.product_qty}}
+                        </td>
+                        <td>
+                            {{wishlist_items_queryset.added_date}}
+                        </td>
+                        <td>
+                            {{wishlist_items_queryset.price}}
+                        </td>
+                    </tr>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+        <!--        </div>-->
+    </div>
+
+
+    {% endblock %}
+
+
+
+
+

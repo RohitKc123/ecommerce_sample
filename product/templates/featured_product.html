@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link href="{% static 'css/productDetails.css' %}" rel="stylesheet">
+<link href="{% static 'css/wishList.css' %}" rel="stylesheet">
+<link href="{% static 'css/featured_product.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<div class="featured-product-header">
+    <div class="container">
+        <p>Featured Product</p>
+    </div>
+</div>
+<div class="container">
+<div class="row row-description-featured-product">
+
+        {% for product in featured_product %}
+
+        <div class="col-lg-3 col-sm-12">
+            <div class="card card-design-featured-product container">
+
+                {% if product.image %}
+                <a href="/product-description/{{product.id}}/"><img class="card-img-top1" src="{{product.image.url}}"
+                                                                    alt="Card image cap" id="image"></a>
+                {% else %}
+                <a href="/product-description/{{product.id}}/"><img class="card-img-top1" src="{% static 'images/default_product.png'%}" alt="Card image cap"
+                                                                    id="image1" height="50px" width="60px"></a>
+                {% endif %}
+                <div class="related-description">
+                    <p class="product-name">{{product.name}}</p>
+                    <p class="product-category"> {{product.category}}</p>
+
+                    <p class="product-price-featured"><strong class="price">Rs {{product.price}}</strong></p>
+                    <button type="button" class="btn btn-danger button-design" data-toggle="modal"
+                            data-target=#{{product.id}}
+                            class="btn">
+                        Add to Cart
+                    </button>
+
+
+
+                    <div class="modal fade" id={{product.id}} tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header confirm-modal-header">
+                                    <h5 class="modal-title confirm-modal-title" id="exampleModalLabel">Confirm
+                                        Purchase</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                          </div>
+                                <div class="modal-body confirm-purchase-featured">
+                                    <div class="container">
+                                        {% for message in messages %}
+
+                                        {% endfor %}
+                                        <p><span class="confirm-title-featured">Name: </span> {{product.name}}</p>
+
+                                          <p><span class="confirm-title-featured">Price: </span><span
+                                            class="item_price">{{product.price}}</span>
+                                        <input type="hidden" value="{{product.price}}" class="item_unit_price" />
+                                              <input type="hidden" value="{{product.quantity}}" class="item_quantity">
+
+                                    </p>
+                                        {% if company %}
+                                    <p><span class="confirm-title">Company:</span> {{product.Company}}</p>
+                                    {% else %}
+                                    <p><span class="confirm-title">Company: </span>N/A</p>
+                                    {% endif %}
+                                        <p><span class="confirm-title-featured">Available Quantity: </span>{{product.quantity}}
+                                        </p>
+                                        <form method="post" action="/wishlist/">
+                                            <input type="hidden" id="item" value={{product.id}} name="item">
+                                            <div class="form-group ">
+                                            <div class="edit-product-quantity">
+                                            <label><span class="confirm-title">Required Quantity</span></label>
+                                            <!--                                            <span class="minus dis" id="decrease" onclick="decreaseValue()"></span>-->
+                                            <!--                                            <input type="number" class="qty"-->
+                                            <!--                                                   onkeypress="changeValue(); return event.charCode >= 48"-->
+                                            <!--                                                   min="0" max="{{item.quantity}}" value="1" name="qty">-->
+                                            <i class="fa-solid fa-minus edit-quantity-increment decrement-count"
+                                               id="decrement-count"></i>
+                                            <div id="total-count">
+                                                <p class="edit-quantity total-count" name="product-qty">
+                                                    1 </p>
+                                                <input type="hidden" id="quantity" class="hidden-quantity-field"
+                                                       name="hidden-quantity-field" value="1" >
+                                            </div>
+
+                                            <i class="fa-solid fa-plus edit-quantity-increment increment-count"
+                                               id="increment-count"></i>
+
+
+                                        </div>
+                                        </div>
+                                            <div class="changingprice product-name"
+                                                 class="rounded buttonshad buttonstyling bg-primary text-light mx-5">
+                                                Rs:<span> {{product.price}}</span>
+                                            </div>
+                                            {% csrf_token %}
+                                            <!--                        <input type="text" name="product_id" id="product_id">-->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">Close
+                                                </button>
+                                                <button type="submit"
+                                                        class="btn btn-danger">
+                                                    Confirm Add
+                                                </button>
+                                            </div>
+                                        </form>
+                                          </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+            </div>
+
+        </div>
+          {% endfor %}
+    </div>
+
+</div>
+
+<script>
+    // function changeValue() {
+    //     let qtys = document.getElementsByClassName("qty");
+    //     let changingprices = document.getElementsByClassName("changingprice");
+    //     let item_price = document.getElementsByClassName("item_price");
+    //     // d.addEventListener("change", function (){
+    //     //     document.querySelector("#changingprice").innerHTML='Total Price: ' + (item_price * this.value)
+    //     // })
+    //     // let values = document.getElementsByClassName("qty");
+    //
+    //     for (let i = 0; i < qtys.length; i++) {
+    //
+    //         qtys[i].addEventListener('change', () => {
+    //             changingprices[i].innerHTML = 'Total Price: Rs ' + (item_price[i].innerHTML * qtys[i].value);
+    //
+    //         })
+    //     }
+    //
+    // }
+       let hiddenQuantityField = document.getElementsByClassName("hidden-quantity-field");
+        var plus = document.getElementsByClassName("increment-count");
+        var minus = document.getElementsByClassName("decrement-count");
+        const totalCount = document.getElementsByClassName("total-count");
+        let item_unit_price = document.getElementsByClassName("item_unit_price");
+        let item_quantity = document.getElementsByClassName("item_quantity")
+        let unit_price = document.getElementsByClassName("item_price");
+        let changingprice = document.getElementsByClassName("changingprice");
+        var count = 0;
+
+
+    for (let i = 0; i <= unit_price.length; i++) {
+            plus[i].addEventListener("click", () => {
+                // console.log("Here");
+                // console.log("this: ", parseInt(unit_price[i].innerHTML))
+                // console.log(item_quantity[i]);
+                // console.log(parseInt(totalCount[i].innerHTML))
+                console.log(parseInt(totalCount[i].innerHTML) , parseInt(item_quantity[i].value))
+                if (parseInt(totalCount[i].innerHTML) < item_quantity[i].value) {
+                totalCount[i].innerHTML = parseInt(totalCount[i].innerHTML) + 1;
+                hiddenQuantityField[i].value = parseInt(hiddenQuantityField[i].value) + 1;
+                    console.log("here");
+                    changingprice[i].innerHTML =
+                        "Total: " + item_unit_price[i].value * parseInt(totalCount[i].innerHTML);
+                }
+                else{
+                 totalCount[i].innerHTML = parseInt(totalCount[i].innerHTML);
+                hiddenQuantityField[i].value = parseInt(hiddenQuantityField[i].value) ;
+                    totalCount[i].innerHTML = item_quantity[i].value;
+                }
+                })
+            minus[i].addEventListener("click", () => {
+                // console.log(unit_price[i].value * parseInt(totalCount[i].innerHTML));
+                totalCount[i].innerHTML = parseInt(totalCount[i].innerHTML) - 1;
+                hiddenQuantityField[i].value = parseInt(hiddenQuantityField[i].value) - 1;
+                if (totalCount[i].innerHTML >= 1) {
+                    changingprice[i].innerHTML =
+                        "Total: " + item_unit_price[i].value * parseInt(totalCount[i].innerHTML);
+
+                } else {
+                    totalCount[i].innerHTML = 1;
+                }
+            })
+        }
+
+
+
+        plus.addEventListener("click", () => {
+            console.log("hello");
+            count++;
+            totalCount.innerHTML = count;
+
+        });
+        minus.addEventListener("click", () => {
+            console.log("minus")
+            count--;
+            totalCount.innerHTML = count;
+        })
+
+
+</script>
+
+<div class="centered-element">
+    <div class="container" style="display: flex; justify-content: center">
+        <nav aria-label="Page navigation example">
+            <div class="filtered-product-pagination">
+                <ul class="pagination">
+                    {% if featured_product%}
+
+                    {% if featured_product.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                                             href="/featured-product/?page={{featured_product.previous_page_number}}">&laquo;</a>
+                    </li>
+
+                    {% endif %}
+
+                    {% for n in featured_product.paginator.page_range %}
+                    {% if featured_product.number == n %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                    </li>
+                    {% else%}
+                    <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+
+                    {% if featured_product.has_next %}
+                    <li class="page-item"><a class="page-link"
+                                             href="/featured_product/?page={{featured_product.next_page_number}}">&raquo;</a>
+                    </li>
+
+                    {% endif %}
+
+
+                </ul>
+            </div>
+        </nav>
+
+{% endblock %}

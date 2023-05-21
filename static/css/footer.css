@@ -1,0 +1,81 @@
+.footer-design a {
+    color: black !important;
+}
+
+.footer-design {
+    background: #EEEFFB;
+}
+
+.signup-button {
+    font-size: 15px;
+    background: #dc3545;
+    /*border-radius: 5px;*/
+    padding: 10px 20px;
+    border: 0px !important;
+    margin-bottom: 15px;
+}
+.signup-button a{
+
+    color: white !important;
+}
+.logo{
+    font-size: 25px;
+    margin-bottom: 2rem;
+}
+
+.col-1{
+    text-align: left;
+}
+.footer-container{
+    text-align: left;
+    padding: 40px;
+}
+
+.category{
+    font-family: 'Josefin Sans';
+    margin-bottom: 2rem;
+}
+
+.customer-care{
+    font-family: 'Josefin Sans';
+}
+
+.pages{
+    font-family: 'Josefin Sans';
+    margin-bottom: 2rem;
+}
+
+.categories a{
+    line-height: 12px;
+    color: #8A8FB9 !important;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.first-col{
+    line-height: 12px;
+    color: #8A8FB9 !important;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.page a{
+    line-height: 12px;
+    color: #8A8FB9 !important;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.col-3{
+    padding: 0rem 0rem 0rem 3rem !important;
+}
+
+.col-2{
+    padding: 0rem 10rem !important;
+}

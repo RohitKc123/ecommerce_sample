@@ -1,0 +1,42 @@
+.featured-product-header {
+    margin-top: 20px;
+    padding: 50px;
+    background: #F6F5FF;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 49px;
+    display: flex;
+    color: #1A0B5B !important;
+
+}
+
+.row-description-featured-product {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card-design-featured-product{
+    margin: 20px;
+}
+
+.product-price-featured{
+
+    text-align: left;
+    font-size: 15px
+}
+
+.confirm-title-featured{
+    font-weight: 600;
+}
+
+.confirm-purchase-featured{
+   font-size: 17px;
+    line-height: 23px
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}

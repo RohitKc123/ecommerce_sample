@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link href="{% static 'css/ProductCategory.css' %}" rel="stylesheet">
+
+<div class="searched-item">
+    <div class="container">
+        <p>Searched Item</p>
+    </div>
+</div>
+
+<div class="top-main container">
+{% if not data %}
+    <div class="filtered-product-category">
+    </div>
+    {% endif %}
+    <div class="row main">
+        {% for item in data %}
+        <div class="col-lg-3 col-sm-12">
+
+            <div class="card card-design-filtered container">
+                {% if item.image %}
+                <a href="/product-description/{{item.id}}/"><img class="card-img-top-home" src="{{item.image.url}}"
+                                                                 alt="Card image cap" id="image"></a>
+                {% else %}
+                <a href="/product-description/{{item.id}}/"><img class="card-img-top-home" src="{% static 'images/default_product.png'%}" alt="Card image cap"
+                                                                 id="image1" height="50px" width="60px"></a>
+                {% endif %}
+                <div class="card-body">
+                    <div class="card-text">
+                        <p class="product-name"> {{item.name}}</p>
+                        <p> {{item.category}}</p>
+
+                        <!--                        <input type="hidden" value={{item.id}} class="hidden_class">-->
+                    </div>
+                    <p class="product-price-home"><strong class="price">Rs {{item.price}}</strong></p>
+
+                    <!--                <form >-->
+
+
+                    <button type="button" class="btn btn-danger button-design-productList" data-toggle="modal"
+                            data-target=#{{item.id}}
+                            class="btn">
+                        Add to Cart
+                    </button>
+
+                    <!--                </form>-->
+                    <div class="modal fade" id={{item.id}} tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header confirm-modal-header">
+                                    <h5 class="modal-title confirm-modal-title" id="exampleModalLabel">Confirm
+                                        Purchase</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body product-detail">
+                                    {% for message in messages %}
+
+                                    {% endfor %}
+                                    <p><span class="confirm-title">Name:</span> {{item.name}}</p>
+                                    <p><span class="confirm-title">Price: </span><span
+                                            class="item_price">{{item.price}}</span>
+                                    </p>
+                                    <p><span class="confirm-title">Company:</span> {{item.Company}}</p>
+                                    <p><span class="confirm-title">Available Quantity: </span>{{item.quantity}}</p>
+                                    <form method="post" action="/wishlist/">
+                                        <input type="hidden" id="item" value={{item.id}} name="item">
+                                        <div class="form-group">
+                                            <label><span class="confirm-title">Required Quantity</span></label>
+                                            <!--                                            <span class="minus dis" id="decrease" onclick="decreaseValue()"></span>-->
+                                            <input type="number" class="qty"
+                                                   onkeypress="changeValue(); return event.charCode >= 48"
+                                                   min="0" max="{{item.quantity}}" value="1" name="qty">
+
+
+                                        </div>
+                                        <div class="changingprice confirm-modal-price"
+                                             class="rounded buttonshad buttonstyling bg-primary text-light mx-5">
+                                            Rs:<span> {{item.price}}</span>
+                                        </div>
+                                        {% csrf_token %}
+                                        <!--                        <input type="text" name="product_id" id="product_id">-->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close
+                                            </button>
+                                            <button type="submit"
+                                                    class="btn btn-danger">
+                                                Confirm Add
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+
+<script>
+    function changeValue() {
+        let qtys = document.getElementsByClassName("qty");
+        let changingprices = document.getElementsByClassName("changingprice");
+        let item_price = document.getElementsByClassName("item_price");
+        // d.addEventListener("change", function (){
+        //     document.querySelector("#changingprice").innerHTML='Total Price: ' + (item_price * this.value)
+        // })
+        // let values = document.getElementsByClassName("qty");
+        console.log("hello");
+        for (let i = 0; i < qtys.length; i++) {
+
+            qtys[i].addEventListener('change', () => {
+                changingprices[i].innerHTML = 'Total Price: $' + (item_price[i].innerHTML * qtys[i].value);
+
+            })
+
+
+        }
+
+    }
+</script>
+{% endblock %}

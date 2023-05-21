@@ -1,0 +1,31 @@
+<!--{% block content %}-->
+
+<!--<nav aria-label="Page navigation example">-->
+<!--    <ul class="pagination">-->
+<!--        {% if data %}-->
+<!--        {% if data.has_previous %}-->
+<!--        <li class="page-item"><a class="page-link" href="{% url 'item_list' %}?page={{data.previous_page_number}}">Previous</a>-->
+<!--        </li>-->
+<!--        {% endif %}-->
+<!--        {% if data.has_next %}-->
+<!--        {% if data.paginator.page_range %}-->
+<!--        {% for n in data.paginator.page_range %}-->
+<!--        {% if data.number == n %}-->
+<!--        <li class="page-item active">-->
+<!--            <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>-->
+<!--        </li>-->
+<!--        {% elif n > data.number|add:'-3' and n < data.number|add:'3' %}-->
+<!--        <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>-->
+<!--        {% endif %}-->
+<!--        {% endfor %}-->
+<!--        {% endif %}-->
+<!--        {% endif %}-->
+<!--        {% if data.has_next %}-->
+<!--        <li class="page-item"><a class="page-link" href="{% url 'item_list' %}?page={{data.next_page_number}}">Next</a>-->
+<!--        </li>-->
+<!--        {% endif %}-->
+<!--        {% endif %}-->
+<!--    </ul>-->
+<!--</nav>-->
+
+<!--{% endblock %}-->

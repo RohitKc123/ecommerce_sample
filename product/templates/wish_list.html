@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<link href="{% static 'css/wishList.css' %}" rel="stylesheet">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<div class="shopping-cart-title">
+    <div class="container">
+        <p>Shopping Cart</p>
+    </div>
+</div>
+
+
+<div class="container shopping-cart-table">
+    <!--    <div class="row">-->
+    <!--        <div class="col-sm">-->
+    <!--            <div class="top">-->
+    <div class="row">
+        <div class="col-lg-8 cart-wishlist-table">
+            {% if wishlist_queryset %}
+            <table class="table cart-table">
+                <thead>
+                <tr>
+
+                    <th scope="col" class="cart-product-title">Product</th>
+                    <th scope="col" class="cart-product-title">Quantity</th>
+                    <th scope="col" class="cart-product-title">Price</th>
+                    <th scope="col" class="cart-product-title">Action</th>
+
+                </tr>
+                </thead>
+                {% for item in wishlist_queryset%}
+                <tr>
+                    <td>{% if item.wished_item.image %}
+                        <img class="wishlist-card-img-top" src="{{item.wished_item.image.url}}"
+                             alt="Card image cap" id="image"></a>
+                        {% else %}
+                        <img class="wishlist-card-img-top" src="{% static 'images/default_product.png'%}"
+                             alt="Card image cap" id="image1" height="50px"
+                             width="60px"></a>
+                        {% endif %}
+
+                        <span class="item-wishlist-name">{{item.wished_item.name}}</span>
+                    </td>
+                    <td class="product-table-data">{{item.product_qty}}</td>
+                    <td>Rs: {{item.price}}</td>
+
+                    <td>
+
+                        <i
+                                type="button"
+                                class="fa fa-edit cart-edit-button"
+                                data-toggle="modal"
+                                data-target="#{{item.id}}edit"
+                                class="btn"
+                                title="Edit"
+                        >
+
+                        </i>
+
+                        <i
+                                type="button"
+                                class="fa fa-trash cart-delete-button"
+                                title="Delete"
+                                data-toggle="modal"
+                                data-target="#{{item.id}}delete"
+                                class="btn"
+                        >
+
+                        </i>
+                        <!--                            Edit modal-->
+                        <div
+                                class="modal fade"
+                                id="{{item.id}}edit"
+                                tabindex="-1"
+                                role="dialog"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true"
+                        >
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header modal-checkout-title">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Order</h5>
+                                        <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                        >
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body ">
+                                        <p><span class="cart-checkout-edit">Name: </span>{{item.wished_item.name}}</p>
+                                        <!--                    Price:<p class="item_price">{{item.price}}</p>-->
+
+                                        <p><span class="cart-checkout-edit">Price: </span>{{item.wished_item.price}}</p>
+                                        {% if company %}
+                                        <p><span class="cart-checkout-edit">Company:</span> {{item.Company}}</p>
+                                        {% else %}
+                                        <p><span class="cart-checkout-edit">Company: </span>N/A</p>
+                                        {% endif %}
+                                        <p><span class="cart-checkout-edit">Available Quantity: </span>{{item.wished_item.quantity}}
+                                        </p>
+                                        <form method="post" action="/update_price/{{item.id}}/">
+                                            {% csrf_token %}
+                                            <input type="hidden" id="item" value="{{item.id}}" name="item"/>
+                                            <input
+                                                    type="hidden"
+                                                    class="item_class"
+                                                    value="{{item.wished_item.price}}"
+                                            />
+                                            <input type="hidden" class="item_quantity"
+                                                   value="{{item.wished_item.quantity}}">
+
+                                            <div class="form-group">
+                                                <div class="edit-product-quantity">
+                                                    <label class="cart-checkout-edit">Required Quantity: </label>
+                                                    <!--                                            <span class="minus dis" id="decrease" onclick="decreaseValue()"></span>-->
+
+                                                    <!--                                                <input-->
+                                                    <!--                                                        type="number"-->
+                                                    <!--                                                        class="qty"-->
+                                                    <!--                                                        onkeypress="changeValue(); return event.charCode >= 48"-->
+                                                    <!--                                                        min="0"-->
+                                                    <!--                                                        value="{{item.product_qty}}"-->
+                                                    <!--                                                        name="qty"-->
+                                                    <!--                                                        max="{{item.wished_item.quantity}}"-->
+                                                    <!--                                                />-->
+
+
+                                                    <i class="fa-solid fa-minus edit-quantity-increment decrement-count"
+                                                       id="decrement-count"></i>
+                                                    <div id="total-count">
+                                                        <p class="edit-quantity total-count" name="product-qty">
+                                                            {{item.product_qty}} </p>
+                                                        <input type="hidden" id="quantity" class="hidden-quantity-field"
+                                                               name="hidden-quantity-field"
+                                                               value="{{item.product_qty}}"/>
+
+                                                        <input type="hidden" id="quantity" class="hidden-quantity-constant"
+                                                               name="hidden-quantity"
+                                                               value="{{item.product_qty}}"/>
+                                                    </div>
+
+                                                    <i class="fa-solid fa-plus edit-quantity-increment increment-count"
+                                                       id="increment-count"></i>
+
+
+                                                </div>
+
+                                            </div>
+                                            <div
+                                                    class="changingprice confirm-edit-price"
+                                                    class="rounded buttonshad buttonstyling bg-primary text-light mx-5"
+                                            >
+                                                Total: <span>{{item.price}}</span>
+                                            </div>
+
+                                            <!--                        <input type="text" name="product_id" id="product_id">-->
+                                            <div class="modal-footer">
+                                                <button
+                                                        type="button"
+                                                        class="btn modal-cart-close"
+                                                        data-dismiss="modal"
+                                                >
+                                                    Close
+                                                </button>
+                                                <button type="submit" class="btn modal-cart-checkout">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!--                    </div>-->
+                            </div>
+                        </div>
+                        <!--                            delete modal-->
+
+                        <div class="modal fade" id="{{item.id}}delete" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header modal-checkout-title">
+                                        <h5 class="modal-title" id="example">Product Delete Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <br>
+
+                                    <img class="delete-product-image" src="{% static 'images/Delete_group.png' %}">
+                                    <p class="container delete-product-confirm">Are you sure want to delete this <span
+                                            class="cart-checkout-edit"> {{item.wished_item.name}}</span>?</p>
+                                    <div class="modal-body">
+                                    </div>
+                                    <form method="POST" action="/delete/{{item.id}}/{{item.product_qty}}/">
+                                        {% csrf_token %}
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn modal-cart-close" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="submit" class="btn modal-cart-checkout">Confirm Delete
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+
+        </div>
+        <div class="col cart-total-design">
+
+            <div class="cart-padding">
+                <p class="cart-total-price">Cart Total</p>
+                <p><span style="font-weight: 600;">Total: </span>{{total_price}}</p>
+                <div class="btn-container">
+                    <!--                        <a class="btn checkout-button" datat-toggle="modal" data-target="#carttotalprice">Proceed to checkout</a>-->
+                    <button type="button" class="btn checkout-button" data-toggle="modal" data-target="#carttotalprice">
+                        Proceed to checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="carttotalprice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-checkout-title">
+                    <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="modal-close-button">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body checkout-body">
+                    <form action="/checkout/" method="POST">
+                        {% csrf_token %}
+                        {% for message in messages %}
+                        {% endfor %}
+                        {{form|crispy}}
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn modal-cart-close" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn modal-cart-checkout">Check Out</button>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% else %}
+    <div class="empty-cart-image">
+            <img class="empty-cart" src="{% static 'images/empty-cart.png' %}">
+
+
+    </div>
+    <div class="empty-cart-text">
+    <p class="empty-cart-msg">Your cart is empty</p>
+        <p class="empty-cart-body">Looks like you have not added anything to your cart.</p>
+        <a class="empty-cart-button" href="/">Go ahead & explore</a>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    // function changeValue() {
+    //     console.log("I'm getting called");
+    //     let unit_price = document.getElementsByClassName("item_class");
+    //     let qnty = document.getElementsByClassName("qty");
+    //     let changingprice = document.getElementsByClassName("changingprice");
+    //     // let item_price = document.getElementsByClassName("item_price")
+    //     for (let i = 0; i <= qnty.length; i++) {
+    //         qnty[i].addEventListener("change", () => {
+    //             changingprice[i].innerHTML =
+    //                 "Updated Price: " + unit_price[i].value * qnty[i].value;
+    //         });
+    //     }
+    // }
+    let hiddenQuantityField = document.getElementsByClassName("hidden-quantity-field");
+    var plus = document.getElementsByClassName("increment-count");
+    var minus = document.getElementsByClassName("decrement-count");
+    const totalCount = document.getElementsByClassName("total-count");
+    let item_quantity = document.getElementsByClassName("item_quantity");
+    let unit_price = document.getElementsByClassName("item_class");
+    let constant_quantity = document.getElementsByClassName("hidden-quantity-constant");
+    let changingprice = document.getElementsByClassName("changingprice");
+    // let wish_quantity = document.getElementsByClassName("product-qty")
+    var count = 0;
+
+    for (let i = 0; i <= unit_price.length; i++) {
+        plus[i].addEventListener("click", () => {
+            // console.log("Here");
+            // console.log("this: ", parseInt(unit_price[i].innerHTML))
+            // console.log(item_quantity[i]);
+            // console.log(parseInt(totalCount[i].innerHTML))
+
+            console.log(totalCount[i].innerHTML, item_quantity[i].value ,  parseInt(constant_quantity[i].value))
+            console.log(parseInt(totalCount[i].innerHTML) < (parseInt(item_quantity[i].value) + parseInt(constant_quantity[i].value)))
+            if (parseInt(totalCount[i].innerHTML) < (parseInt(item_quantity[i].value) + parseInt(constant_quantity[i].value))) {
+                totalCount[i].innerHTML = parseInt(totalCount[i].innerHTML) + 1;
+                hiddenQuantityField[i].value = parseInt(hiddenQuantityField[i].value) + 1;
+
+                changingprice[i].innerHTML =
+                    "Total: " + unit_price[i].value * parseInt(totalCount[i].innerHTML);
+            } else {
+                totalCount[i].innerHTML = parseInt(totalCount[i].innerHTML) + parseInt(constant_quantity[i].value);
+                hiddenQuantityField[i].value = parseInt(hiddenQuantityField[i].value);
+                totalCount[i].innerHTML = parseInt(item_quantity[i].value) + parseInt(constant_quantity[i].value);
+            }
+        })
+        minus[i].addEventListener("click", () => {
+            // console.log(unit_price[i].value * parseInt(totalCount[i].innerHTML));
+            totalCount[i].innerHTML = parseInt(totalCount[i].innerHTML) - 1;
+            hiddenQuantityField[i].value = parseInt(hiddenQuantityField[i].value) - 1;
+
+            if (totalCount[i].innerHTML >= 1) {
+                changingprice[i].innerHTML =
+                    "Total: " + unit_price[i].value * parseInt(totalCount[i].innerHTML);
+
+            } else {
+                hiddenQuantityField[i].value = 1;
+                totalCount[i].innerHTML = 1;
+            }
+        })
+    }
+
+
+    plus.addEventListener("click", () => {
+
+        count++;
+        totalCount.innerHTML = count;
+
+    });
+    minus.addEventListener("click", () => {
+
+        count--;
+        totalCount.innerHTML = count;
+    })
+
+</script>
+
+
+</div>
+
+{% endblock %}

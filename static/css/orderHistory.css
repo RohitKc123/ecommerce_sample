@@ -1,0 +1,33 @@
+.order-history-title {
+    padding: 50px;
+    background: #F6F5FF;
+    color: #101750;
+    font-weight: 600;
+    font-size: 36px;
+}
+
+.user-order-table{
+    margin-top: 4rem;
+    margin-bottom: 16rem;
+}
+
+.empty-order{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10rem;
+    margin-top: 8rem;
+    text-align: center;
+}
+
+.order-history-button{
+    padding: 10px 40px;
+    background-color: #dc3545;
+    border-radius: 2rem;
+    color: white;
+    font-size: 17px;
+}
+
+.order-history-button:hover {
+    text-decoration: none;
+    color: white;
+}

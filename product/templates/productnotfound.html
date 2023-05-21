@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<Style>
+    .product-not-found{
+        margin-top: 10rem;
+        margin-bottom: 13rem;
+    }
+
+    .go-home-button{
+        background: #dc3545;
+        color: white;
+    }
+    .go-home-button:hover{
+        color: white;
+    }
+</Style>
+
+ <body>
+
+        <div class="d-flex align-items-center justify-content-center vh-100 product-not-found">
+            <div class="text-center">
+
+                <h1 class="fs-3"> <span class="text-danger">Opps!</span> Product not found.</h1>
+                <br>
+                <p class="lead">
+                    The product you’re looking for doesn’t exist.
+                  </p>
+                <a href="/" class="btn go-home-button">Go Home</a>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

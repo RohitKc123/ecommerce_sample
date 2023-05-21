@@ -1,0 +1,202 @@
+.card-user-img {
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+.logout-profile-button {
+    width: 30%;
+    padding: 20px 25px;
+    background: #dc3545;
+    color: white;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.logout-profile-button:hover {
+    color: white;
+}
+
+.edit-profile-button:hover {
+    color: white;
+}
+
+.edit-profile-button {
+    width: 30%;
+    padding: 20px 25px;
+    background: #7E33E0;
+    color: white;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.user-profile {
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px 10px #F6F4FD;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    max-width: 30rem !important;
+    border-radius: 1rem;
+    border: 0px;
+    margin-left: 26rem;
+}
+
+.user-profile-card {
+    border: 0px !important;
+    border-radius: 1rem !important;
+    /*width: 22rem;*/
+
+}
+
+.user-name {
+    font-weight: 600;
+    text-align: center;
+}
+
+.user-details {
+    font-weight: 600;
+    font-size: 25px;
+
+}
+
+.user-profile-button {
+    text-align: center;
+    line-height: 1rem;
+}
+
+.user-email {
+    color: #8A8FB9;
+    font-weight: 600;
+}
+
+.user-account {
+    font-weight: 800;
+    color: #101750;
+    font-size: 25px;
+    text-align: left;
+    padding: 15px 20px;
+    background: #F6F5FF;
+    margin-top: 30px;
+}
+
+.user-profile-edit {
+    font-family: "Josefin Sans";
+    color: #8A8FB9;
+    font-size: 20px;
+    text-align: left;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.user-profile-edit:hover {
+    color: #8A8FB9;
+    text-decoration: none;
+}
+
+.user-profile-logout {
+    font-family: "Josefin Sans";
+    color: #8A8FB9;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-align: left;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.user-profile-logout:hover {
+    color: #8A8FB9;
+    text-decoration: none;
+
+}
+
+.user-personal {
+    margin-bottom: 1rem;
+    margin-top: 4rem;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px 10px #F6F4FD;
+    border: 0px !important;
+    justify-content: center;
+    width: 40rem !important;
+    border-radius: 1rem !important;
+    border: 0px;
+    font-weight: 600;
+}
+
+.user-personal-info-head {
+    font-weight: 800;
+    color: #101750;
+    font-size: 25px;
+    text-align: left;
+    padding: 15px 20px;
+    margin-top: 30px;
+}
+
+.user-personal-info {
+    text-align: left;
+    font-family: "Josefin Sans";
+    font-size: 20px;
+    color: #8A8FB9;
+    margin-left: 2rem;
+}
+
+.user-phone-image {
+    width: 19px;
+}
+
+.user-personal-contact {
+    background: #7E33E0;
+    height: 28px;
+}
+
+.user-profile-head {
+    margin-top: 20px;
+    padding: 50px;
+    background: #F6F5FF;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 49px;
+    display: flex;
+    color: #1A0B5B !important;
+}
+
+.user-profile-edit-icon {
+    color: #7E33E0;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.user-profile-delete-icon {
+    color: #dc3545;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.user-history {
+    margin-bottom: 4rem;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px 10px #f6f4fd;
+    border: 0px !important;
+    width: 40rem !important;
+    border-radius: 1rem !important;
+    border: 0px;
+}
+
+.user-order-history{
+    font-weight: 800;
+    color: #101750;
+    font-size: 23px;
+}
+
+.user-order-title{
+    display: flex;
+    padding: 15px 20px;
+    justify-content: space-between;
+    /*justify-content: space-between;*/
+}
+

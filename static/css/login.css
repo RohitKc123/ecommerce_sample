@@ -1,0 +1,77 @@
+.user-login {
+    margin-bottom: 13rem;
+    display: flex;
+    justify-content: center;
+
+}
+
+.user-login-card {
+    margin-top: 100px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px 10px #F8F8FB;
+    padding: 5rem 5rem;
+
+}
+
+.login-card-image {
+    margin-top: 6rem;
+    width: 47%;
+    margin-left: 10rem;
+}
+
+.user-login-head{
+    font-size: 32px;
+    text-align: center;
+    font-weight: 600;
+    color: #7E33E0;
+}
+
+.user-login-paragraph{
+    color: #9096B2;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.user-login-button{
+    width: 100%;
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 50px;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-left: 2px;
+
+}
+
+.user-login-text{
+    text-align: center;
+}
+
+.user-signup-text{
+    margin-left: 8px;
+    color: #7E33E0;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.user-signup-text:hover{
+    color: #7E33E0;
+    text-decoration: none;
+}
+
+.forgot-password{
+    text-align: right;
+}
+
+.forgot-password a{
+    color: #7E33E0;
+}
+
+.forgot-password:hover a{
+    color: #7E33E0 !important;
+    text-decoration: none;
+}
+

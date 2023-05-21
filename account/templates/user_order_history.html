@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link href="{% static 'css/orderHistory.css' %}" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<div class="order-history-title">
+    <div class="container">
+        <p>Order History</p>
+    </div>
+</div>
+{% if wishlist_items_queryset %}
+<div class="container user-order-table">
+    <table class="table" style="border: 1px;">
+        <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Price</th>
+        </tr>
+
+            {% for item in wishlist_items_queryset %}
+        <tr>
+            <td>
+                {{item.wished_item.name}}
+            </td>
+            <td>
+                {{item.product_qty}}
+            </td>
+            <td>
+                {{item.added_date}}
+            </td>
+            <td>
+                {{item.price}}
+            </td>
+            </tr>
+            {% endfor %}
+
+        </thead>
+
+    </table>
+</div>
+{% else %}
+<div class="container empty-order">
+<p>
+    You have never ordered.
+</p>
+    <a class="order-history-button" href="/">SHOP NOW</a>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for message in messages %}
+{{message}}
+<h5>Hi {{request.user.first_name}}</h5>
+    <p>Your Product {{product.name}} has been successfully purchased</p>
+    <p>Total Quantity: {{quantity}}</p>
+    <p>Total Price: {{price}}</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+<body>
+{% block content %}
+{% load static %}
+<link href="{% static 'css/edit-profile.css' %}" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<div class="user-profile-title">
+    <div class="container">
+    <p>Profile: Edit</p>
+        </div>
+</div>
+<div class="container edit-profile-form">
+    <div class="user-edit">
+    <h1 class="user-edit-title">Edit Profile</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <div class="user-edit-container">
+        <button type="submit" class="btn user-profile-edit-button">Update</button>
+        </div>
+    </form>
+        </div>
+</div>
+{% endblock %}
+</body>
+</html>

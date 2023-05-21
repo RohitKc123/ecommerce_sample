@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="top" style="min-height: 25rem">
+    <p>Your Email: {{request.user.email}}</p>
+    <table class="table table-bordered" style="width: 50%;">
+        <thead>
+        <tr>
+
+            <th scope="col">Item</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Status</th>
+
+
+        </tr>
+        </thead>
+        {% for item in items %}
+        <tr>
+            <td>{{item.wished_item.name}}</td>
+            <td>{{item.product_qty}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.status}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="2" class="text-right">Total</th>
+            <th>Rs. {{total_price}}</th>
+        </tr>
+        <!--          <form method="POST"&ndash;&gt;-->
+        <!--                      action="/email-sent/{{request.user.id}}/{{item.wished_item.id}}/{{item.product_qty}}/{{item.price}}/">-->
+        <!--                    <input type="hidden" value="{{item.id}}" name="wisheditem"/>-->
+        <!--                    {% csrf_token %}-->
+        <!--                    <button type="submit" class="btn btn-primary"></button>-->
+        <!--                </form>-->
+
+
+    </table>
+</div>
+<div class="col-md-6">
+    <h3>Check Out</h3>
+    <form action="/checkout/" method="POST">
+        <input type="hidden" value="{{total_price}}" name="total"/>
+        {% csrf_token %}
+        {{form|crispy}}
+        <button class="btn btn-primary">Order</button>
+    </form>
+</div>
+
+{% endblock %}
